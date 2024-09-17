@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+
+<robot name="turtlebot3_burger">
+
+  <link name="world_link">
+
+  </link>
+  <!-- Base link (chassis)-->
+  <link name="base">
+    <inertial>
+      <origin xyz="-0.032 0 0.070" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.001" ixy="0.000" ixz="0.000"
+               iyy="0.001" iyz="0.000" izz="0.001"/>
+    </inertial>
+    <collision name="base_collision">
+      <origin xyz="-0.032 0 0.070" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.140 0.140 0.140"/>
+      </geometry>
+    </collision>
+    <visual name="base_visual">
+      <origin xyz="-0.032 0 0.070" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.140 0.140 0.140"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Lidar link -->
+  <link name="lidar">
+    <inertial>
+      <origin xyz="-0.020 0 0.161" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia ixx="0.001" ixy="0.000" ixz="0.000"
+               iyy="0.001" iyz="0.000" izz="0.001"/>
+    </inertial>
+    <collision name="lidar_sensor_collision">
+      <origin xyz="-0.020 0 0.161" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0508" length="0.055"/>
+      </geometry>
+    </collision>
+    <visual name="lidar_sensor_visual">
+      <origin xyz="-0.032 0 0.171" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.0508" length="0.055"/>
+      </geometry>
+    </visual>
+    <sensor name="hls_lfcd_lds" type="ray">
+      <origin xyz="-0.032 0 0.171" rpy="0 0 0"/>
+      <update_rate>1800</update_rate>
+      <visualize>0</visualize>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1.000000</resolution>
+            <min_angle>0.000000</min_angle>
+            <max_angle>6.280000</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.120000</min>
+          <max>3.5</max>
+          <resolution>0.015000</resolution>
+        </range>
+        <noise type="gaussian">
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+    </sensor>
+  </link>
+
+  <!-- Left wheel link -->
+  <link name="left_wheel">
+    <inertial>
+    
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0.000" ixz="0.000"
+               iyy="0.001" iyz="0.000" izz="0.001"/>
+    </inertial>
+    <collision name="left_wheel_collision">
+
+      <geometry>
+        <cylinder radius="0.033" length="0.018"/>
+      </geometry>
+    </collision>
+    <visual name="left_wheel_visual">
+      
+      <geometry>
+        <cylinder radius="0.033" length="0.018"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Right wheel link -->
+  <link name="right_wheel">
+    <inertial>
+      
+      <mass value="0.1"/>
+      <inertia ixx="0.001" ixy="0.000" ixz="0.000"
+               iyy="0.001" iyz="0.000" izz="0.001"/>
+    </inertial>
+    <collision name="right_wheel_collision">
+      
+      <geometry>
+        <cylinder radius="0.033" length="0.018"/>
+      </geometry>
+    </collision>
+    <visual name="right_wheel_visual">
+      
+      <geometry>
+        <cylinder radius="0.033" length="0.018"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Left wheel joint -->
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 0.08 0.023" rpy="-1.57 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Right wheel joint -->
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base"/>
+    <child link="right_wheel"/>
+    <origin xyz="0.0 -0.08 0.023" rpy="1.57 0 0"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+
+  <!-- Lidar joint -->
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base"/>
+    <child link="lidar"/>
+    <origin xyz="-0.032 0 0.01" rpy="0 0 0"/>
+  </joint>
+  <!-- base joint -->
+  <joint name="base_joint" type="fixed">
+    <parent link="world_link"/>
+    <child link="base"/>
+  </joint>
+ 
+
+</robot>
